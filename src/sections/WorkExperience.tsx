@@ -1,4 +1,3 @@
-import Section from "../components/Section";
 export default function WorkExperience() {
   return (
     <section className="py-16" aria-labelledby="work-exp-heading">
