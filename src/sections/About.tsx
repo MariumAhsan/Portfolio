@@ -1,70 +1,63 @@
 import Section from "../components/Section";
+import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <Section id="about" className="py-20">
+    <Section
+      id="about"
+      bgClassName="bg-gradient-to-b from-[#0a0a0e] via-[#0e0e15] to-[#0a0a0e]"
+      className="py-24"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Left Column - Text Content */}
-        <div className="space-y-6">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
+        
+        {/* Left Column - Text */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="space-y-6"
+        >
+          <h2 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent
+                         bg-gradient-to-r from-[#C026D3] via-[#14B8A6] to-[#C026D3]
+                         drop-shadow-[0_0_25px_rgba(192,38,211,0.35)] tracking-wide">
             About Me
           </h2>
-          
-          <div className="space-y-4 text-gray-600 leading-relaxed">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-              nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-            
-            <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-              eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt 
-              in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-              doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore 
-              veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            </p>
-          </div>
-          
-          {/* Skills/Tech Stack */}
-          <div className="pt-4">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              Skills & Technologies
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {['React', 'TypeScript', 'Node.js', 'Python', 'AWS', 'Docker', 'MongoDB', 'PostgreSQL'].map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-        
-        {/* Right Column - Image/Visual Content */}
-        <div className="flex justify-center lg:justify-end">
-          <div className="relative">
-            {/* Placeholder for profile image or illustration */}
-            <div className="w-80 h-80 bg-gradient-to-br from-blue-400 to-purple-600 rounded-2xl shadow-2xl flex items-center justify-center">
+
+          <p className="text-gray-300 text-lg leading-relaxed">
+            I am a Full-Stack Developer, passionate about building modern, aesthetic, and functional web experiences.  
+            I enjoy turning complex problems into elegant solutions that are both usable and visually striking.
+          </p>
+
+          <p className="text-gray-300 text-lg leading-relaxed">
+            I thrive in collaborative and innovative environments, learning continuously and exploring the boundaries of web technologies.  
+            My goal is to create web experiences that are memorable, impactful, and professional.
+          </p>
+        </motion.div>
+
+        {/* Right Column - Visual */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="flex justify-center lg:justify-end relative"
+        >
+          <div className="relative group">
+            {/* Sleek Profile Card */}
+            <div className="w-64 h-64 bg-gradient-to-br from-blue-500 to-purple-700 rounded-2xl shadow-2xl flex flex-col items-center justify-center transform transition-transform duration-500 group-hover:scale-105">
               <div className="text-white text-center">
-                <div className="text-6xl mb-4">👨‍💻</div>
-                <p className="text-lg font-medium">Profile Image</p>
-                <p className="text-sm opacity-80">800x800px</p>
+                <div className="text-5xl mb-2 animate-pulse">👨‍💻</div>
+                <p className="text-lg font-semibold">Marium Ahsan</p>
+                <p className="text-sm opacity-70">Full-Stack Developer</p>
               </div>
             </div>
-            
-            {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-400 rounded-full opacity-80 animate-pulse"></div>
-            <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-pink-400 rounded-full opacity-60 animate-pulse delay-1000"></div>
+
+            {/* Decorative Neon Blobs */}
+            <div className="absolute -top-4 -right-4 w-16 h-16 bg-pink-500 rounded-full opacity-50 blur-xl animate-pulse"></div>
+            <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-cyan-400 rounded-full opacity-40 blur-xl animate-pulse delay-500"></div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </Section>
   );

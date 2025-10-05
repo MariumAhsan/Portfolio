@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-4 text-center">
         {/* Main Footer Text */}
         <div className="mb-8">
-          <h3 className="text-2xl font-bold mb-4">John Doe</h3>
+          <h3 className="text-2xl font-bold mb-4">Marium Ahsan</h3>
           <p className="text-gray-300 text-lg">
             Building amazing digital experiences with passion and creativity
           </p>
@@ -39,7 +39,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-gray-700 pt-8">
           <p className="text-gray-400">
-            © {new Date().getFullYear()} John Doe. All rights reserved.
+            © {new Date().getFullYear()} Marium Ahsan. All rights reserved.
           </p>
         </div>
       </div>
