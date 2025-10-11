@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const observedSectionIds = [
   "home",
@@ -17,12 +19,10 @@ const mapSectionToNav = (id: string) => {
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeId, setActiveId] = useState<string>("home");
+  const [scrollY, setScrollY] = useState(0);
 
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const firstFocusableElementRef = useRef<HTMLAnchorElement>(null);
-  const lastFocusableElementRef = useRef<HTMLAnchorElement>(null);
 
   const navLinks = [
     { href: "#home", label: "Home" },
@@ -32,22 +32,23 @@ const Navbar = () => {
     { href: "#work-experience", label: "Experience" },
   ];
 
-  // Scroll effect
+  // Track scroll for transparency
   useEffect(() => {
-    const handleScroll = (): void => setIsScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
-    return (): void => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Scrollspy
+  // IntersectionObserver for active link
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries) =>
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveId(mapSectionToNav(entry.target.id));
-        });
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 }
+          if (entry.isIntersecting) {
+            setActiveId(mapSectionToNav(entry.target.id));
+          }
+        }),
+      { rootMargin: "-30% 0px -55% 0px", threshold: 0.05 }
     );
 
     observedSectionIds.forEach((id) => {
@@ -55,134 +56,114 @@ const Navbar = () => {
       if (el) observer.observe(el);
     });
 
-    return (): void => observer.disconnect();
+    return () => observer.disconnect();
   }, []);
 
-  // Escape key handler
+  // Escape key closes menu
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent): void => {
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMenuOpen) setIsMenuOpen(false);
     };
     if (isMenuOpen) document.addEventListener("keydown", handleEscape);
-    return (): void => document.removeEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isMenuOpen]);
 
-  // Focus trap & body scroll
+  // Lock body scroll when mobile menu open
   useEffect(() => {
-    if (isMenuOpen && mobileMenuRef.current) {
-      firstFocusableElementRef.current?.focus();
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-
-    return (): void => {
-      document.body.style.overflow = "unset";
-    };
+    document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
   }, [isMenuOpen]);
+
+  // Calculate dynamic transparency
+  const opacity = Math.min(0.05 + scrollY / 500, 0.95); // min 0.05, max 0.95
 
   return (
     <>
-      <a href="#home" className="skip-to-content" aria-label="Skip to main content">Skip to content</a>
+      <a href="#home" className="skip-to-content sr-only" aria-label="Skip to main content">
+        Skip to content
+      </a>
+
+      {/* Main navbar */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-gray-700/30 transition-all duration-300 ${
-          isScrolled ? "shadow-lg" : ""
-        }`}
+        className={`fixed top-6 left-8 right-8 z-50 flex items-center justify-between
+          rounded-full px-6 py-3 transition-all duration-300
+          backdrop-blur-2xl border border-white/20 shadow-lg`}
+        style={{
+          background: `rgba(15,23,42,${opacity})`, // dynamically transparent
+          boxShadow: `0 4px 15px rgba(0,0,0,${opacity * 0.2})`,
+        }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <a href="#home" className="text-2xl font-bold text-[#C026D3]">Portfolio</a>
-            </div>
+        {/* Logo / brand */}
+        <a href="#home" className="flex items-center gap-2 text-[#14B8A6] font-semibold text-lg">
+          <span className="w-6 h-6 rounded-full bg-[#14B8A6]/20 flex items-center justify-center text-[#14B8A6] font-bold">
+            M
+          </span>
+          
+        </a>
 
-            {/* Desktop Links */}
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-8">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                      activeId === link.href.slice(1)
-                        ? "text-[#C026D3] border-b-2 border-[#C026D3]"
-                        : "text-gray-200 hover:text-[#14B8A6]"
-                    }`}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Mobile Button */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#C026D3] transition-colors duration-200"
-                aria-expanded={isMenuOpen}
-                aria-controls="mobile-menu"
-              >
-                <span className="sr-only">Open main menu</span>
-                {/* Hamburger */}
-                <svg
-                  className={`${isMenuOpen ? "hidden" : "block"} h-6 w-6`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                {/* Close */}
-                <svg
-                  className={`${isMenuOpen ? "block" : "hidden"} h-6 w-6`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          </div>
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-100">
+          {navLinks.map((link) => (
+            <motion.a
+              key={link.href}
+              href={link.href}
+              className={`relative px-3 py-1 rounded-full transition-colors duration-200 ${
+                activeId === link.href.slice(1)
+                  ? "text-[#14B8A6] font-semibold"
+                  : "text-gray-200 hover:text-[#14B8A6]"
+              }`}
+              whileHover={{ scale: 1.05 }}
+            >
+              {link.label}
+              {activeId === link.href.slice(1) && (
+                <motion.span
+                  layoutId="underline"
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-[#14B8A6] rounded-full"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+            </motion.a>
+          ))}
         </div>
 
-        {/* Mobile Menu */}
-        <div
-          ref={mobileMenuRef}
-          id="mobile-menu"
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          }`}
+        {/* Mobile button */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden p-2 rounded-md text-gray-100 hover:text-[#14B8A6] hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#14B8A6]/50"
         >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/10 backdrop-blur-md border-b border-gray-700/30">
-            {navLinks.map((link, index) => (
+          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </nav>
+
+      {/* Mobile menu with animation */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            ref={mobileMenuRef}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25 }}
+            className="md:hidden fixed left-8 right-8 top-20 z-40
+              bg-[#0b1220]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl
+              px-4 pt-4 pb-6 space-y-2 text-gray-100"
+          >
+            {navLinks.map((link) => (
               <a
                 key={link.href}
-                ref={
-                  index === 0
-                    ? firstFocusableElementRef
-                    : index === navLinks.length - 1
-                    ? lastFocusableElementRef
-                    : undefined
-                }
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C026D3] focus:ring-offset-2 ${
-                  activeId === link.href.slice(1) ? "text-[#C026D3]" : "text-gray-200 hover:text-[#14B8A6]"
+                className={`block px-4 py-3 rounded-lg transition-all duration-200 ${
+                  activeId === link.href.slice(1)
+                    ? "bg-white text-[#14B8A6] font-semibold"
+                    : "hover:bg-white/5 hover:text-[#14B8A6]"
                 }`}
-                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {link.label}
               </a>
             ))}
-          </div>
-        </div>
-      </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

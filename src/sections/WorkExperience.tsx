@@ -1,66 +1,114 @@
+import { motion } from "framer-motion";
+import { Briefcase } from "lucide-react";
+import Section from "../components/Section";
+
 export default function WorkExperience() {
+  const experienceList = [
+    {
+      role: "ICT Project Manager",
+      company: "6sense Technologies",
+      period: "Sep 2025 – Present",
+      location: "Dhaka",
+      details: [
+        "Managed internal projects including company website upgrades and DepShield portal.",
+        "Facilitated agile project planning using Jira, Trello, Linear.",
+        "Coordinated cross-functional teams and improved delivery predictability.",
+      ],
+    },
+    {
+      role: "Technical Communicator",
+      company: "EBL Asset Management Ltd",
+      period: "May 2025 – Aug 2025",
+      location: "Dhaka",
+      details: [
+        "Processed 100+ share transfer requests ensuring 100% compliance.",
+        "Automated NAV & portfolio updates using Google Apps Script & Sheets (80% time saved).",
+        "Built a Google Form–Sheets pipeline to sort 750+ CVs, reducing manual effort.",
+        "Resolved network downtime issues and optimized IT operations.",
+      ],
+    },
+    {
+      role: "Software Developer",
+      company: "Systech Digital Ltd",
+      period: "Feb 2024 – May 2024",
+      location: "Dhaka",
+      details: [
+        "Developed employee management system with Laravel & Blade.",
+        "Built e-commerce platform with payment gateway, coupon system, and admin panel.",
+        "Improved DB performance with optimized queries & indexing.",
+        "Introduced clean code practices and reusable components.",
+      ],
+    },
+  ];
+
   return (
-    <section className="py-16" aria-labelledby="work-exp-heading">
-      <div className="mx-auto max-w-4xl px-6">
-        <h2 id="work-exp-heading" className="text-3xl font-bold tracking-tight text-gray-900">
-          Work Experience
-        </h2>
+    <Section
+      id="work-experience"
+      bgClassName="bg-gradient-to-b from-[#0A0A0E] via-[#0E0E15] to-[#0A0A0E]"
+      className="relative flex flex-col items-center justify-center text-center py-24"
+    >
+      <motion.h2
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-5xl md:text-6xl font-extrabold mb-6"
+      >
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-400">
+          Work
+        </span>{" "}
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-300 via-cyan-400 to-purple-400">
+          Experience
+        </span>
+      </motion.h2>
 
-        <ol className="relative mt-10 border-s border-gray-200">
-          <li className="mb-12 ms-6">
-            <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-brand ring-8 ring-white">
-              <span className="h-2.5 w-2.5 rounded-full bg-white" />
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.8 }}
+        transition={{ delay: 0.8 }}
+        className="uppercase tracking-widest text-gray-400 mb-12 text-sm"
+      >
+        My Professional Journey
+      </motion.p>
+
+      <ol className="relative border-l-[3px] border-white/20 ml-4 mt-6 space-y-12 max-w-3xl text-left">
+        {experienceList.map((exp, idx) => (
+          <motion.li
+            key={idx}
+            initial={{ opacity: 0, x: idx % 2 === 0 ? -40 : 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: idx * 0.2 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Icon (white circle with briefcase) */}
+            <span className="absolute -left-[2.35rem] flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-black text-purple-400 shadow-md z-10">
+              <Briefcase size={22} strokeWidth={2} />
             </span>
-            <div>
-              <h3 className="text-xl font-semibold text-gray-900">
-                6sense Technologies – ICT Project Manager
-              </h3>
-              <p className="mt-1 text-sm text-gray-500">Sep 2025 – Present • Dhaka</p>
-              <ul className="mt-4 list-disc space-y-2 ps-5 text-gray-700">
-                <li>Managed internal projects including company website upgrades and DepShield portal.</li>
-                <li>Facilitated agile project planning using Jira, Trello, Linear.</li>
-                <li>Coordinated cross-functional teams and improved delivery predictability.</li>
+
+            {/* Content */}
+            <div className="ml-10">
+              <div className="flex justify-between items-start mb-2">
+                <span className="text-xs font-semibold tracking-wider text-gray-400 uppercase">
+                  {exp.period}
+                </span>
+                <span className="text-xs text-gray-500">{exp.location}</span>
+              </div>
+
+              <h3 className="text-xl font-semibold text-white mb-1">{exp.role}</h3>
+
+              <p className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400 font-medium mb-2">
+                {exp.company}
+              </p>
+
+              <ul className="list-disc ps-5 space-y-1 text-gray-300 text-sm">
+                {exp.details.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </div>
-          </li>
-
-          <li className="mb-12 ms-6">
-            <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-brand ring-8 ring-white">
-              <span className="h-2.5 w-2.5 rounded-full bg-white" />
-            </span>
-            <div>
-              <h3 className="text-xl font-semibold text-gray-900">
-                EBL Asset Management Ltd – Technical Communicator
-              </h3>
-              <p className="mt-1 text-sm text-gray-500">May 2025 – Aug 2025 • Dhaka</p>
-              <ul className="mt-4 list-disc space-y-2 ps-5 text-gray-700">
-                <li>Processed 100+ share transfer requests ensuring 100% compliance.</li>
-                <li>Automated NAV & portfolio updates using Google Apps Script & Sheets (80% time saved).</li>
-                <li>Built a Google Form–Sheets pipeline to sort 750+ CVs, reducing manual effort.</li>
-                <li>Resolved network downtime issues and optimized IT operations.</li>
-              </ul>
-            </div>
-          </li>
-
-          <li className="ms-6">
-            <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-brand ring-8 ring-white">
-              <span className="h-2.5 w-2.5 rounded-full bg-white" />
-            </span>
-            <div>
-              <h3 className="text-xl font-semibold text-gray-900">
-                Systech Digital Ltd – Software Developer
-              </h3>
-              <p className="mt-1 text-sm text-gray-500">Feb 2024 – May 2024 • Dhaka</p>
-              <ul className="mt-4 list-disc space-y-2 ps-5 text-gray-700">
-                <li>Developed employee management system with Laravel & Blade.</li>
-                <li>Built e-commerce platform with payment gateway, coupon system, and admin panel.</li>
-                <li>Improved DB performance with optimized queries & indexing.</li>
-                <li>Introduced clean code practices and reusable components.</li>
-              </ul>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-  )
+          </motion.li>
+        ))}
+      </ol>
+    </Section>
+  );
 }

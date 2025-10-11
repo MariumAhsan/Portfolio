@@ -1,3 +1,5 @@
+"use client";
+import { motion } from "framer-motion";
 import Section from "../components/Section";
 
 interface PublicationItemProps {
@@ -12,12 +14,20 @@ interface PublicationItemProps {
 function PublicationItem({ title, year, venue, authors, link, summary }: PublicationItemProps) {
   const formattedAuthors = authors.replace(
     /Marium Ahsan/g,
-    "<strong>Marium Ahsan</strong>"
+    "<strong class='text-white font-semibold'>Marium Ahsan</strong>"
   );
 
   return (
-    <article className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-gray-900/30 backdrop-blur-md p-6 shadow-md hover:shadow-lg transition-all duration-300 group">
-      <h3 className="text-lg font-semibold text-white">{title}</h3>
+    <motion.article
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-gray-900/30 backdrop-blur-md p-6 shadow-md hover:shadow-lg transition-all duration-300 group"
+    >
+      <h3 className="text-lg font-semibold text-white group-hover:text-pink-400 transition-colors duration-300">
+        {title}
+      </h3>
       <p className="text-sm text-gray-400 mt-1">{year} • {venue}</p>
       <p
         className="text-sm text-gray-300 mt-2"
@@ -32,7 +42,7 @@ function PublicationItem({ title, year, venue, authors, link, summary }: Publica
       >
         View Paper &rarr;
       </a>
-    </article>
+    </motion.article>
   );
 }
 
@@ -40,23 +50,34 @@ export default function Publications() {
   return (
     <Section
       id="publications"
-      bgClassName="bg-gradient-to-b from-[#0A0A0E] via-[#0E0E15] to-[#0A0A0E]"
       className="relative flex flex-col items-center justify-center text-center py-32"
     >
-      {/* Headline */}
-      <h2 className="text-5xl md:text-6xl font-extrabold mb-4">
+      {/* Animated Headline */}
+      <motion.h2
+        initial={{ opacity: 0, y: -40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="text-5xl md:text-6xl font-extrabold mb-4"
+      >
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-400">
           My
         </span>{" "}
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-cyan-400 to-teal-300">
           Research Works
         </span>
-      </h2>
+      </motion.h2>
 
       {/* Subheading */}
-      <p className="uppercase tracking-widest text-gray-400 mb-12 text-sm">
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        viewport={{ once: true }}
+        className="uppercase tracking-widest text-gray-400 mb-12 text-sm"
+      >
         Selected Publications
-      </p>
+      </motion.p>
 
       {/* Publications List */}
       <div className="flex flex-col gap-6 w-full max-w-4xl">

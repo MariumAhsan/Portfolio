@@ -1,105 +1,117 @@
+import { motion } from "framer-motion";
+import { Mail, Linkedin, Github } from "lucide-react";
 import Section from "../components/Section";
 
-const Contact = () => {
+export default function Contact() {
   const contactLinks = [
     {
-      name: 'Email',
-      icon: '✉️',
-      url: 'mailto:john.doe@example.com',
-      label: 'Send me an email',
-      isExternal: false
+      name: "Email",
+      icon: <Mail size={22} />,
+      url: "mailto:marium.ahsan@example.com",
+      label: "Send me an email",
+      isExternal: false,
     },
     {
-      name: 'LinkedIn',
-      icon: '💼',
-      url: 'https://linkedin.com/in/johndoe',
-      label: 'Connect with me on LinkedIn',
-      isExternal: true
+      name: "LinkedIn",
+      icon: <Linkedin size={22} />,
+      url: "https://linkedin.com/in/mariumahsan",
+      label: "Connect with me on LinkedIn",
+      isExternal: true,
     },
     {
-      name: 'GitHub',
-      icon: '🐙',
-      url: 'https://github.com/johndoe',
-      label: 'View my projects on GitHub',
-      isExternal: true
-    }
+      name: "GitHub",
+      icon: <Github size={22} />,
+      url: "https://github.com/mariumahsan",
+      label: "View my projects on GitHub",
+      isExternal: true,
+    },
   ];
 
   return (
-    <Section id="contact" className="py-20">
-      <div className="max-w-2xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Get In Touch
-          </h2>
-          <p className="text-xl text-gray-600">
-            I'm always interested in new opportunities and exciting projects.
-          </p>
-        </div>
+    <Section
+      id="contact"
+      bgClassName="bg-gradient-to-b from-[#0A0A0E] via-[#0E0E15] to-[#0A0A0E]"
+      className="py-24 flex flex-col items-center justify-center text-center"
+    >
+      {/* Header */}
+      <motion.h2
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-5xl md:text-6xl font-extrabold mb-6"
+      >
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-400">
+          Get In Touch
+        </span>
+      </motion.h2>
 
-        {/* Contact Card */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-          <div className="space-y-6">
-            {contactLinks.map((contact) => (
-              <a
-                key={contact.name}
-                href={contact.url}
-                target={contact.isExternal ? "_blank" : undefined}
-                rel={contact.isExternal ? "noopener noreferrer" : undefined}
-                className="flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 group"
-                aria-label={contact.label}
-              >
-                {/* Icon */}
-                <div className="flex-shrink-0">
-                  <span className="text-3xl group-hover:scale-110 transition-transform duration-200">
-                    {contact.icon}
-                  </span>
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.8 }}
+        transition={{ delay: 0.6 }}
+        className="text-gray-400 mb-14 text-sm uppercase tracking-widest"
+      >
+        Let’s Connect, Collaborate, and Create
+      </motion.p>
+
+      {/* Contact Container */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="max-w-3xl w-full mx-auto p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg"
+      >
+        <div className="space-y-6">
+          {contactLinks.map((contact, idx) => (
+            <a
+              key={idx}
+              href={contact.url}
+              target={contact.isExternal ? "_blank" : undefined}
+              rel={contact.isExternal ? "noopener noreferrer" : undefined}
+              className="flex items-center justify-between p-5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 group"
+              aria-label={contact.label}
+            >
+              {/* Left side: Icon + Name */}
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white shadow-[0_0_15px_rgba(192,38,211,0.3)] group-hover:scale-110 transition-transform duration-300">
+                  {contact.icon}
                 </div>
-
-                {/* Content */}
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                <div className="text-left">
+                  <h3 className="text-lg font-semibold text-white group-hover:text-fuchsia-400 transition-colors duration-200">
                     {contact.name}
                   </h3>
-                  <p className="text-gray-600 text-sm">
-                    {contact.label}
-                  </p>
+                  <p className="text-gray-400 text-sm">{contact.label}</p>
                 </div>
+              </div>
 
-                {/* External Link Indicator */}
-                {contact.isExternal && (
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors duration-200"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </div>
-                )}
-              </a>
-            ))}
-          </div>
-
-          {/* Additional Message */}
-          <div className="mt-8 pt-6 border-t border-gray-200 text-center">
-            <p className="text-gray-600">
-              Feel free to reach out if you'd like to collaborate or just want to say hello!
-            </p>
-          </div>
+              {/* External Arrow */}
+              {contact.isExternal && (
+                <svg
+                  className="w-5 h-5 text-gray-500 group-hover:text-fuchsia-400 transition-colors duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              )}
+            </a>
+          ))}
         </div>
-      </div>
+
+        {/* Divider + Message */}
+        <div className="mt-10 pt-6 border-t border-white/10 text-center">
+          <p className="text-gray-400 text-sm">
+            Always open to meaningful collaboration and creative partnerships.
+          </p>
+        </div>
+      </motion.div>
     </Section>
   );
-};
-
-export default Contact;
+}
