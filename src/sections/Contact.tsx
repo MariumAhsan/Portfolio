@@ -7,7 +7,7 @@ export default function Contact() {
     {
       name: "Email",
       icon: <Mail size={22} />,
-      url: "mailto:marium.ahsan@example.com",
+      url: "mailto:mariumahsan937@gmail.com",
       label: "Send me an email",
       isExternal: false,
     },
@@ -35,15 +35,19 @@ export default function Contact() {
     >
       {/* Header */}
       <motion.h2
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-5xl md:text-6xl font-extrabold mb-6"
-      >
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-400">
-          Get In Touch
-        </span>
-      </motion.h2>
+  initial={{ opacity: 0, y: -40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1 }}
+  className="text-5xl md:text-6xl font-extrabold mb-6 font-[Playfair]"
+>
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-400">
+    Get
+  </span>{" "}
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-cyan-400 to-teal-300">
+    In Touch
+  </span>
+</motion.h2>
+
 
       <motion.p
         initial={{ opacity: 0 }}

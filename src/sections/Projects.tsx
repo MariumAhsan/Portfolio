@@ -5,12 +5,12 @@ import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 
 const demoProjects = [
   {
-    title: "Portfolio Website",
-    description: "A personal portfolio to showcase projects and skills with interactive UI.",
-    tags: ["React", "Tailwind", "Framer Motion"],
+    title: "AI Auto Mailer",
+    description: "An AI Mail Writer, enables easy email generation with subject line and fexibility to change tones and length.",
+    tags: ["Next.js", "TypeScript", "Groq API"],
     image: "/demo-portfolio.png",
-    live: "https://example.com/portfolio",
-    github: "https://github.com/username/portfolio",
+    live: "https://ai-mail-writer-g04wnaic4-marium-ahsans-projects.vercel.app/",
+    github: "https://github.com/MariumAhsan/AI-Mail-Writer",
   },
   {
     title: "AI Chatbot",
@@ -39,18 +39,19 @@ export default function Projects() {
     >
       {/* Headline */}
       <motion.h2
-        initial={{ opacity: 0, y: -40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-5xl md:text-6xl font-extrabold mb-4"
-      >
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-400">
-          My
-        </span>{" "}
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-cyan-400 to-teal-300">
-          Featured Projects
-        </span>
-      </motion.h2>
+  initial={{ opacity: 0, y: -40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1 }}
+  className="text-5xl md:text-6xl font-extrabold mb-8 font-[Playfair]"
+>
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-400">
+    Featured
+  </span>{" "}
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-cyan-400 to-teal-300">
+    Projects
+  </span>
+</motion.h2>
+
 
       {/* Subheading */}
       <motion.p

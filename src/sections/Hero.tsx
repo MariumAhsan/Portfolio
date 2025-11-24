@@ -21,7 +21,7 @@ const Hero = () => {
         className="max-w-4xl mx-auto px-6 z-10 flex flex-col items-center"
       >
         {/* Heading */}
-        <h1 className="text-6xl md:text-8xl font-extrabold mb-6 font-[Orbitron] bg-clip-text text-transparent
+        <h1 className="text-6xl md:text-8xl font-extrabold mb-6 font-[Playfair] bg-clip-text text-transparent
                        bg-gradient-to-r from-[#C026D3] via-[#14B8A6] to-[#C026D3]
                        tracking-wide drop-shadow-[0_0_25px_rgba(192,38,211,0.35)]">
           Marium Ahsan

@@ -54,19 +54,20 @@ export default function Publications() {
     >
       {/* Animated Headline */}
       <motion.h2
-        initial={{ opacity: 0, y: -40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="text-5xl md:text-6xl font-extrabold mb-4"
-      >
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-400">
-          My
-        </span>{" "}
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-cyan-400 to-teal-300">
-          Research Works
-        </span>
-      </motion.h2>
+  initial={{ opacity: 0, y: -40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1 }}
+  viewport={{ once: true }}
+  className="text-5xl md:text-6xl font-extrabold mb-8 font-[Playfair]"
+>
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-400">
+    Research
+  </span>{" "}
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-cyan-400 to-teal-300">
+    Works
+  </span>
+</motion.h2>
+
 
       {/* Subheading */}
       <motion.p

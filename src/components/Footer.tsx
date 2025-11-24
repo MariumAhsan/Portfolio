@@ -2,8 +2,8 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
   const socialLinks = [
-    { name: "GitHub", icon: <FaGithub />, url: "https://github.com/" },
-    { name: "LinkedIn", icon: <FaLinkedin />, url: "https://linkedin.com/" },
+    { name: "GitHub", icon: <FaGithub />, url: "https://github.com/MariumAhsan/" },
+    { name: "LinkedIn", icon: <FaLinkedin />, url: "https://linkedin.com/in/marium-ahsan/" },
     { name: "Email", icon: <FaEnvelope />, url: "mailto:mariumahsan937@gmail.com" },
   ];
 

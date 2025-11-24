@@ -18,11 +18,20 @@ const About = () => {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="space-y-6"
         >
-          <h2 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent
-                         bg-gradient-to-r from-[#C026D3] via-[#14B8A6] to-[#C026D3]
-                         drop-shadow-[0_0_25px_rgba(192,38,211,0.35)] tracking-wide">
-            About Me
-          </h2>
+          <motion.h2
+  initial={{ opacity: 0, y: -40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1 }}
+  className="text-5xl md:text-6xl font-extrabold mb-8 font-[Playfair]"
+>
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-400">
+    About
+  </span>{" "}
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-cyan-400 to-teal-300">
+    Me
+  </span>
+</motion.h2>
+
 
           <p className="text-gray-300 text-lg leading-relaxed">
             I am a Full-Stack Developer, passionate about building modern, aesthetic, and functional web experiences.  
